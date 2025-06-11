@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Promo akcija – Ventilatori</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #d0e7f9, #ffffff);
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
+    }
+    .card {
+      background: #fff;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      max-width: 600px;
+    }
+    .city-selector {
+      margin-bottom: 20px;
+    }
+    select {
+      padding: 8px;
+      border-radius: 8px;
+    }
+    .temperature {
+      font-size: 65px;
+      margin: 15px 0;
+      color: #0077cc;
+    }
+    .promo {
+      font-size: 45px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="city-selector">
+      <label for="city">Izaberi grad:</label>
+      <select id="city" onchange="fetchTemperature()">
+        <option value="Belgrade">Beograd</option>
+        <option value="Novi Sad">Novi Sad</option>
+        <option value="Niš">Niš</option>
+        <option value="Kragujevac">Kragujevac</option>
+        <option value="Subotica">Subotica</option>
+      </select>
+    </div>
+    <div class="temperature" id="temperature">Učitavam temperaturu...</div>
+    <div class="promo">Rashladite dom već danas.<br/>Ventilatori na sniženju!</div>
+  </div>
+
+  <script>
+    const apiKey = '7457a2637264c19405940ab2692a1918'; // Nabavi na openweathermap.org
+
+    async function fetchTemperature() {
+      const city = document.getElementById('city').value;
+      const tempEl = document.getElementById('temperature');
+
+      try {
+        const response = await fetch(
+          `https://api.openweathermap.org/data/2.5/weather?q=${city},RS&units=metric&lang=sr&appid=${apiKey}`
+        );
+        const data = await response.json();
+        const temp = Math.round(data.main.temp);
+        tempEl.textContent = `Spolja je trenutno ${temp}°C`;
+      } catch (err) {
+        tempEl.textContent = 'Greška pri preuzimanju temperature.';
+        console.error(err);
+      }
+    }
+
+    // Pokreni odmah za prvi grad
+    fetchTemperature();
+  </script>
+</body>
+</html>
