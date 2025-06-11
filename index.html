@@ -71,7 +71,7 @@
         );
         const data = await response.json();
         const temp = Math.round(data.main.temp);
-        tempEl.textContent = `Spolja je trenutno ${temp}°C`;
+        tempEl.innerHTML = `Spolja je trenutno <span class="temp-value">${temp}°C</span>`;
       } catch (err) {
         tempEl.textContent = 'Greška pri preuzimanju temperature.';
         console.error(err);
