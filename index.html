@@ -2,117 +2,146 @@
 <html lang="sr">
 <head>
   <meta charset="UTF-8">
-  <title>Promo ekran</title>
+  <meta http-equiv="refresh" content="60">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Promo ekran – Ventilatori i klime</title>
   <style>
     body {
       background-color: yellow;
       text-align: center;
       font-family: Arial, sans-serif;
       margin: 0;
+      padding: 0;
+    }
+
+    .container {
       padding: 40px;
     }
-    #grad {
-      font-size: 20px;
-      padding: 10px;
-      margin-bottom: 30px;
-    }
+
     .top-text {
       color: black;
       font-size: 80px;
-      margin: 0;
+      margin-bottom: 10px;
     }
+
     .temperature {
       color: red;
-      font-size: 176px;
+      font-size: 186px;
       font-weight: bold;
-      margin: 20px 0;
+      margin: 0;
     }
+
+    .bottom-message {
+      color: black;
+      font-size: 80px;
+      margin-top: 20px;
+    }
+
+    #grad {
+      font-size: 24px;
+      padding: 8px 12px;
+      margin-top: 10px;
+    }
+
     .bottom-section {
       display: flex;
       justify-content: center;
       align-items: center;
-      margin-top: 20px;
+      margin-top: 40px;
     }
-    .bottom-text {
+
+    .bottom-text-container {
+      text-align: left;
+      margin-right: 60px;
+    }
+
+    .bottom-line {
       color: blue;
       font-size: 80px;
-      margin: 0;
+      margin: 15px 0;
+      font-weight: bold;
     }
+
     .bottom-section img {
-      max-height: 180px;
-      margin-left: 40px;
+      max-height: 540px;
       border-radius: 12px;
     }
   </style>
 </head>
-<body>
-  <label for="grad" style="font-size: 18px;">Izaberite grad:</label>
-  <select id="grad" onchange="promeniGrad(this.value)">
-    <option value="Beograd">Beograd</option>
-    <option value="Novi Sad">Novi Sad</option>
-    <option value="Niš">Niš</option>
-    <option value="Kragujevac">Kragujevac</option>
-    <option value="Subotica">Subotica</option>
-    <option value="Zrenjanin">Zrenjanin</option>
-    <option value="Pančevo">Pančevo</option>
-    <option value="Čačak">Čačak</option>
-    <option value="Kraljevo">Kraljevo</option>
-    <option value="Novi Pazar">Novi Pazar</option>
-    <option value="Leskovac">Leskovac</option>
-    <option value="Sombor">Sombor</option>
-    <option value="Užice">Užice</option>
-    <option value="Vranje">Vranje</option>
-    <option value="Valjevo">Valjevo</option>
-    <option value="Požarevac">Požarevac</option>
-    <option value="Pirot">Pirot</option>
-    <option value="Sremska Mitrovica">Sremska Mitrovica</option>
-    <option value="Zaječar">Zaječar</option>
-    <option value="Kikinda">Kikinda</option>
-    <option value="Vršac">Vršac</option>
-    <option value="Jagodina">Jagodina</option>
-    <option value="Bor">Bor</option>
-    <option value="Prokuplje">Prokuplje</option>
-    <option value="Loznica">Loznica</option>
-    <option value="Paraćin">Paraćin</option>
-    <option value="Negotin">Negotin</option>
-    <option value="Apatin">Apatin</option>
-    <option value="Inđija">Inđija</option>
-    <option value="Aranđelovac">Aranđelovac</option>
-  </select>
+<body onload="ucitajGrad()">
+  <div class="container">
+    <label for="grad" style="font-size: 24px;">Izaberi grad:</label>
+    <select id="grad" onchange="promeniGrad(this.value)">
+      <option value="Beograd">Beograd</option>
+      <option value="Novi Sad">Novi Sad</option>
+      <option value="Niš">Niš</option>
+      <option value="Kragujevac">Kragujevac</option>
+      <option value="Subotica">Subotica</option>
+      <option value="Zrenjanin">Zrenjanin</option>
+      <option value="Pančevo">Pančevo</option>
+      <option value="Čačak">Čačak</option>
+      <option value="Kraljevo">Kraljevo</option>
+      <option value="Sombor">Sombor</option>
+      <option value="Leskovac">Leskovac</option>
+      <option value="Užice">Užice</option>
+      <option value="Vranje">Vranje</option>
+      <option value="Valjevo">Valjevo</option>
+      <option value="Sremska Mitrovica">Sremska Mitrovica</option>
+      <option value="Požarevac">Požarevac</option>
+      <option value="Pirot">Pirot</option>
+      <option value="Zaječar">Zaječar</option>
+      <option value="Kruševac">Kruševac</option>
+      <option value="Jagodina">Jagodina</option>
+      <option value="Šabac">Šabac</option>
+      <option value="Loznica">Loznica</option>
+      <option value="Bor">Bor</option>
+      <option value="Prokuplje">Prokuplje</option>
+      <option value="Apatin">Apatin</option>
+      <option value="Vrbas">Vrbas</option>
+      <option value="Ruma">Ruma</option>
+      <option value="Kikinda">Kikinda</option>
+      <option value="Bačka Palanka">Bačka Palanka</option>
+      <option value="Bečej">Bečej</option>
+    </select>
 
-  <p class="top-text" id="tekst-pre">Spolja je trenutno</p>
-  <div class="temperature" id="temperatura">--°C</div>
-  <div class="bottom-section">
-    <p class="bottom-text">Ventilatori i klime kod nas na sniženju!</p>
-    <img src="https://d1pjg4o0tbonat.cloudfront.net/content/dam/midea-aem/us/air-conditioners/split-system/midea-9000-btu-mini-split-ac/midea-9000-btu-mini-split-ac.jpeg/jcr:content/renditions/cq5dam.web.5000.5000.jpeg" alt="Midea klima">
+    <p class="top-text">Spolja je trenutno</p>
+    <p class="temperature" id="temperatura">Učitavam...</p>
+    <p class="bottom-message">– rashladite dom već danas –</p>
+
+    <div class="bottom-section">
+      <div class="bottom-text-container">
+        <p class="bottom-line">Ventilatori i klime</p>
+        <p class="bottom-line">kod nas na sniženju!</p>
+      </div>
+      <img src="https://d1pjg4o0tbonat.cloudfront.net/content/dam/midea-aem/us/air-conditioners/split-system/midea-9000-btu-mini-split-ac/midea-9000-btu-mini-split-ac.jpeg/jcr:content/renditions/cq5dam.web.5000.5000.jpeg" alt="Midea klima">
+    </div>
   </div>
 
   <script>
-    async function osveziTemperaturu() {
-      const grad = localStorage.getItem("izabraniGrad") || document.getElementById("grad").value;
-      try {
-        const response = await fetch(`https://wttr.in/${grad}?format=%t`);
-        const temperatura = await response.text();
-        document.getElementById("temperatura").textContent = temperatura;
-      } catch (e) {
-        document.getElementById("temperatura").textContent = "--°C";
+    function ucitajGrad() {
+      const sacuvanGrad = localStorage.getItem("grad");
+      const gradSelect = document.getElementById("grad");
+      if (sacuvanGrad) {
+        gradSelect.value = sacuvanGrad;
       }
+      promeniGrad(gradSelect.value);
     }
 
-    function promeniGrad(noviGrad) {
-      localStorage.setItem("izabraniGrad", noviGrad);
-      osveziTemperaturu();
-    }
+    function promeniGrad(grad) {
+      localStorage.setItem("grad", grad);
+      const apiKey = "7457a2637264c19405940ab2692a1918";
+      const url = `https://api.openweathermap.org/data/2.5/weather?q=${grad}&units=metric&lang=sr&appid=${apiKey}`;
 
-    // Podesi izabrani grad iz localStorage-a prilikom učitavanja stranice
-    window.onload = function () {
-      const sacuvaniGrad = localStorage.getItem("izabraniGrad");
-      if (sacuvaniGrad) {
-        document.getElementById("grad").value = sacuvaniGrad;
-      }
-      osveziTemperaturu();
-      setInterval(osveziTemperaturu, 60000); // Osvežavanje svakih 60 sekundi
-    };
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          const temp = Math.round(data.main.temp);
+          document.getElementById("temperatura").innerText = `${temp}°C`;
+        })
+        .catch(() => {
+          document.getElementById("temperatura").innerText = "Nije dostupno";
+        });
+    }
   </script>
 </body>
 </html>
