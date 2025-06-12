@@ -2,8 +2,8 @@
 <html lang="sr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-  <title>Promo akcija – Ventilatori</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Promo – Ventilatori</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -22,19 +22,22 @@
       margin-top: 10px;
     }
     #temp {
-      margin: 30px 0;
-      font-size: 80px;
+      margin: 60px 0;
     }
-    .plavo {
-      color: blue;
-    }
-    .crveno {
-      color: red;
-      font-size: 146px;
-      font-weight: bold;
-    }
-    .crno {
+    .top-text {
       color: black;
+      font-size: 80px;
+      margin: 0;
+    }
+    .temperature {
+      color: red;
+      font-size: 156px;
+      margin: 20px 0;
+    }
+    .bottom-text {
+      color: blue;
+      font-size: 80px;
+      margin: 0;
     }
   </style>
 </head>
@@ -73,7 +76,11 @@
     <option value="Apatin">Apatin</option>
   </select>
 
-  <p id="temp">Učitavanje temperature...</p>
+  <div id="temp">
+    <p class="top-text">Spolja je trenutno</p>
+    <p class="temperature">Učitavanje...</p>
+    <p class="bottom-text">Rashladite dom već danas. Ventilatori na sniženju odmah pored vas.</p>
+  </div>
 
   <script>
     const apiKey = "7457a2637264c19405940ab2692a1918";
@@ -90,10 +97,9 @@
         );
         const data = await res.json();
         const temp = Math.round(data.main.temp);
-        document.getElementById("temp").innerHTML =
-          `<span class="crno">Spolja je trenutno </span><span class="crveno">${temp}°C</span><span class="plavo"> Rashladite dom već danas. Ventilatori i klime na sniženju!</span>`;
+        document.querySelector(".temperature").innerHTML = `${temp}°C`;
       } catch {
-        document.getElementById("temp").innerText = "Greška pri učitavanju temperature.";
+        document.querySelector(".temperature").innerHTML = "Greška!";
       }
     }
 
