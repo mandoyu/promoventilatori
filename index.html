@@ -23,14 +23,14 @@
     }
     #temp {
       margin: 30px 0;
-      font-size: 70px;
+      font-size: 80px;
     }
     .plavo {
       color: blue;
     }
     .crveno {
       color: red;
-      font-size: 136px;
+      font-size: 146px;
       font-weight: bold;
     }
     .crno {
@@ -91,7 +91,7 @@
         const data = await res.json();
         const temp = Math.round(data.main.temp);
         document.getElementById("temp").innerHTML =
-          `<span class="plavo">Spolja je trenutno </span><span class="crveno">${temp}°C</span><span class="crno"> – Rashladite dom već danas. Ventilatori na sniženju odmah pored vas.</span>`;
+          `<span class="plavo">Spolja je trenutno </span><span class="crveno">${temp}°C</span><span class="crno"> – Rashladite dom već danas. Ventilatori i klime na sniženju!</span>`;
       } catch {
         document.getElementById("temp").innerText = "Greška pri učitavanju temperature.";
       }
