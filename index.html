@@ -135,7 +135,8 @@
         .then(response => response.json())
         .then(data => {
           const temp = Math.round(data.main.temp);
-          document.getElementById("temperatura").innerText = `${temp}°C`;
+const znak = temp >= 0 ? "+" : "-";
+document.getElementById("temperature").textContent = `${znak}${Math.abs(temp)}°C`;
         })
         .catch(() => {
           document.getElementById("temperatura").innerText = "Nije dostupno";
