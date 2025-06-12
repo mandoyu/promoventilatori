@@ -91,7 +91,7 @@
         const data = await res.json();
         const temp = Math.round(data.main.temp);
         document.getElementById("temp").innerHTML =
-          `<span class="plavo">Spolja je trenutno </span><span class="crveno">${temp}°C</span><span class="crno"> – Rashladite dom već danas. Ventilatori i klime na sniženju!</span>`;
+          `<span class="crno">Spolja je trenutno </span><span class="crveno">${temp}°C</span><span class="plavo"> Rashladite dom već danas. Ventilatori i klime na sniženju!</span>`;
       } catch {
         document.getElementById("temp").innerText = "Greška pri učitavanju temperature.";
       }
