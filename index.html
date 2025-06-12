@@ -2,44 +2,16 @@
 <html lang="sr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
   <title>Promo akcija – Ventilatori</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: linear-gradient(to right, #d0e7f9, #ffffff);
-      color: #333;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-      text-align: center;
-    }
-    .card {
-      background: #fff;
-      padding: 30px;
-      border-radius: 16px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      max-width: 800px;
-    }
-    .city-selector {
-      margin-bottom: 20px;
-    }
-    select {
-      padding: 8px;
-      border-radius: 8px;
-    }
-    .temperature {
-      font-size: 50px;
-      margin: 15px 0;
-      color: #0077cc;
-    }
-    .promo {
-      font-size: 50px;
-      font-weight: bold;
-    }
+    body { font-family: Arial, sans-serif; background:#f0f4f8; color:#333; text-align:center; padding:40px; }
+    select, p { font-size:18px; }
+    select { padding:8px; margin-top:20px; }
+    #temp { margin:20px 0; }
+    .plavo { color: blue; }
+    .crveno { color: red; font-weight: bold; }
+    .crno { color: black; }
   </style>
 </head>
 <body>
@@ -89,27 +61,23 @@
 
     async function updateTemperature(grad) {
       try {
-        const response = await fetch(
+        const res = await fetch(
           `https://api.openweathermap.org/data/2.5/weather?q=${grad}&appid=${apiKey}&units=metric&lang=sr`
         );
-        const data = await response.json();
+        const data = await res.json();
         const temp = Math.round(data.main.temp);
-        document.getElementById("temp").innerText =
-          `Spolja je trenutno ${temp}°C – Rashladite dom već danas. Ventilatori na sniženju odmah pored vas.`;
-      } catch (error) {
-        document.getElementById("temp").innerText = "Greška u prikazu temperature.";
-        console.error("API greška:", error);
+        document.getElementById("temp").innerHTML =
+          `<span class="plavo">Spolja je trenutno </span><span class="crveno">${temp}°C</span><span class="crno"> – Rashladite dom već danas. Ventilatori na sniženju odmah pored vas.</span>`;
+      } catch {
+        document.getElementById("temp").innerText = "Greška pri učitavanju temperature.";
       }
     }
 
-    window.onload = function () {
-      const sacuvaniGrad = localStorage.getItem("izabraniGrad") || "Beograd";
-      document.getElementById("grad").value = sacuvaniGrad;
-      updateTemperature(sacuvaniGrad);
-      setInterval(() => {
-        const trenutniGrad = localStorage.getItem("izabraniGrad") || "Beograd";
-        updateTemperature(trenutniGrad);
-      }, 60000); // osvežava svakih 60 sekundi
+    window.onload = () => {
+      const grad = localStorage.getItem("izabraniGrad") || "Beograd";
+      document.getElementById("grad").value = grad;
+      updateTemperature(grad);
+      setInterval(() => updateTemperature(localStorage.getItem("izabraniGrad") || "Beograd"), 60000);
     };
   </script>
 </body>
